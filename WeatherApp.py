@@ -16,6 +16,7 @@ st.title("City Coordinates Finder and Temperature Curve")
 city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
 selected_date = st.sidebar.date_input("Select a date:", date(2023, 7, 4))
 selected_datetime = datetime.combine(selected_date, datetime.min.time())
+today = datetime.now().date()
 
 # Fetch coordinates when the user enters a city
 if city:
@@ -38,13 +39,23 @@ if not weather_station.empty:
     weather_data = None
     date_check = selected_datetime
 
-    # Check for available weather data
-    while weather_data is None or weather_data.empty:
-        weather_data = Daily(weather_location, date_check, date_check).fetch()
-
-        # If no data, move to the next day
-        if weather_data.empty:
-            date_check += timedelta(days=1)
+    # Adjust for future dates
+    if selected_date > today:
+        st.warning(
+            f"The date you selected ({selected_date}) is in the future. "
+            "Searching for the closest past date with data..."
+        )
+        # Go back in time
+        while weather_data is None or weather_data.empty:
+            weather_data = Daily(weather_location, date_check, date_check).fetch()
+            if weather_data.empty:
+                date_check -= timedelta(days=1)
+    else:
+        # Go forward in time
+        while weather_data is None or weather_data.empty:
+            weather_data = Daily(weather_location, date_check, date_check).fetch()
+            if weather_data.empty:
+                date_check += timedelta(days=1)
 
     # Inform the user if the date had to change
     if date_check.date() != selected_date:
