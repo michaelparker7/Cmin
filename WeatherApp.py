@@ -9,6 +9,12 @@ from timezonefinder import TimezoneFinder
 import pytz
 import pandas as pd
 
+st.set_page_config(
+    page_title="City Coordinates Finder and Temperature Curve",
+    layout="wide",  # Use 'wide' layout for widescreen
+    initial_sidebar_state="expanded",  # Optional: Ensure the sidebar is expanded
+)
+
 # Initialize the geolocator
 geolocator = Nominatim(user_agent="geo_locator")
 
