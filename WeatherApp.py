@@ -214,7 +214,6 @@ with tab1:
 
 with tab2:
     st.title("Work")
-    st.header("Main Tab")
     
     # Sub-tabs using a radio button
     sub_tab = st.radio("Choose a section:", ["1: Steady State Solution", 
