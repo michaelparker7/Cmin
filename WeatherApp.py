@@ -10,7 +10,7 @@ import pytz
 import pandas as pd
 
 st.set_page_config(
-    page_title="City Coordinates Finder and Temperature Curve",
+    page_title="Will Your Dog's Paws Be Okay?",
     layout="wide",  # Use 'wide' layout for widescreen
     initial_sidebar_state="expanded",  # Optional: Ensure the sidebar is expanded
 )
@@ -24,11 +24,13 @@ tab1, tab2 = st.tabs(["App", "Work"])
 
 with tab1:
     # App tab content
-    st.title("City Coordinates Finder and Temperature Curve")
+    st.title("Will Your Dog's Paws Be Okay?")
 
     # Sidebar for user input
     st.sidebar.header("Input Options")
+    st.sidebar.subheader("Where are you walking your dog?")
     city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
+    st.sidebar.subheader("When are you walking your dog?")
     selected_date = st.sidebar.date_input("Select a date:", date(2023, 7, 4))
     selected_datetime = datetime.combine(selected_date, datetime.min.time())
     today = datetime.now().date()
@@ -194,7 +196,7 @@ with tab1:
             bird['Dif_Hz'] = bird['Global_Hz'] - bird['Direct_Hz']
     
             if not bird.empty:
-                st.subheader("Global Horizontal Irradiance vs Hour")
+                st.subheader("Global Irradiance vs Hour")
                 st.write("")
                 st.write("")
                 st.write("")
@@ -202,10 +204,10 @@ with tab1:
                 st.write("")
 
                 plt.figure(figsize=(10, 6))
-                plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Horizontal Irradiance")
-                plt.title("Global Horizontal Irradiance (Global_Hz) vs Hour (HR)")
-                plt.xlabel("Hour of the Day (HR)")
-                plt.ylabel("Global Horizontal Irradiance (Global_Hz)")
+                plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Irradiance")
+                plt.title("Global Irradiance vs Hour")
+                plt.xlabel("Hour of the Day")
+                plt.ylabel("Global Irradiance")
                 plt.grid(True, linestyle="--", alpha=0.6)
                 plt.legend()
                 st.pyplot(plt)
