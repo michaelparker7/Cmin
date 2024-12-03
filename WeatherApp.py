@@ -217,10 +217,9 @@ with tab2:
     st.header("Main Tab")
     
     # Sub-tabs using a radio button
-    sub_tab = st.radio("Choose a sub-tab:", ["Sub-tab 1", "Sub-tab 2", "Sub-tab 3"])
+    sub_tab = st.radio("Choose a section:", ["Sub-taassdb 1", "Sub-tab 2", "Sub-tab 3"])
 
-    if sub_tab == "Sub-tab 1":
-        st.write("Welcome to Sub-tab 1!")
+    if sub_tab == "1: Steady State Solution":
         st.write("This is content for Sub-tab 1.")
     elif sub_tab == "Sub-tab 2":
         st.write("Welcome to Sub-tab 2!")
