@@ -32,12 +32,11 @@ end_date = selected_datetime
 ohthatstheone = stations.nearby(location.latitude,location.longitude).fetch().head(1)
 ohthatstheone['latitude']
 weather_location = Point(ohthatstheone['latitude'],ohthatstheone['longitude'])
-weather_location
 
 data = Daily(weather_location, start_date, end_date)
 data = data.fetch()
 
 # Print the temperature data
-print(f"Temperature on {start_date.date()}:")
-print(f"Min: {data['tmin'][0]}°C")
-print(f"Max: {data['tmax'][0]}°C")
+st.write(f"Temperature on {start_date.date()}:")
+st.write(f"Min: {data['tmin'][0]}°C")
+st.write(f"Max: {data['tmax'][0]}°C")
