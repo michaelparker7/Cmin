@@ -11,7 +11,7 @@ st.title("City Coordinates Finder")
 
 # Sidebar for user input
 city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
-selected_date = st.sidebar.date_input("Select a date:", None)
+selected_date = st.sidebar.date_input("Select a date:", "2023-07-04")
 selected_datetime = datetime.strptime(selected_date, "%Y-%m-%d")
 # Fetch coordinates when the user enters a city
 if city:
