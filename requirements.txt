@@ -2,3 +2,6 @@ streamlit
 geopy
 meteostat
 datetime
+matplotlib
+scipy
+numpy
