@@ -134,7 +134,6 @@ with tab1:
                 timezone = pytz.timezone(timezone_name)
                 utc_offset = timezone.utcoffset(datetime.now())
                 offset_hours = utc_offset.total_seconds() / 3600
-                st.write(f"**Timezone Offset:** {offset_hours} hours")
             else:
                 st.error("Could not determine the timezone for the selected city.")
     
