@@ -88,7 +88,7 @@ with tab1:
                     min_temp = weather_data['tmin'].iloc[0]
                     max_temp = weather_data['tmax'].iloc[0]
 
-                    st.subheader(f"Weather Data in {city.upper()} on {date_check.date()}:")
+                    st.subheader(f"Weather Data in {city.capitalize()} on {date_check.date()}:")
                     st.write(f"Min Temperature: {min_temp}°C")
                     st.write(f"Max Temperature: {max_temp}°C")
 
