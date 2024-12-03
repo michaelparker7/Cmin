@@ -15,6 +15,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",  # Optional: Ensure the sidebar is expanded
 )
 
+
 # Initialize the geolocator
 geolocator = Nominatim(user_agent="geo_locator")
 
@@ -32,9 +33,15 @@ with tab1:
     selected_datetime = datetime.combine(selected_date, datetime.min.time())
     today = datetime.now().date()
 
+    
+    if city:
+        location = geolocator.geocode(city)
+
+    
     # Split layout into two columns
     col1, col2 = st.columns(2)
 
+    
     with col1:
         # Fetch weather station
         stations = Stations()
@@ -113,7 +120,9 @@ with tab1:
             else:
                 st.error("Could not find a weather station near the location.")
 
+
     with col2:
+
         tf = TimezoneFinder()
         if location:
             latitude = location.latitude
@@ -195,8 +204,6 @@ with tab1:
                 plt.grid(True, linestyle="--", alpha=0.6)
                 plt.legend()
                 st.pyplot(plt)
-
-    
 
 with tab2:
     st.title("Work")
