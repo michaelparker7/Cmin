@@ -11,6 +11,7 @@ st.title("City Coordinates Finder")
 # Sidebar for user input
 city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
 selected_date = st.sidebar.date_input("Select a date:", None)
+selected_datetime = datetime.combine(selected_date, datetime.min.time())
 # Fetch coordinates when the user enters a city
 if city:
     location = geolocator.geocode(city)
@@ -24,8 +25,8 @@ if city:
 
 stations = Stations()
 
-start_date = selected_date
-end_date = selected_date
+start_date = selected_datetime
+end_date = selected_datetime
 
 ohthatstheone = stations.nearby(location.latitude,location.longitude).fetch().head(1)
 ohthatstheone['latitude']
