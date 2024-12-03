@@ -195,6 +195,8 @@ with tab1:
     
             if not bird.empty:
                 st.subheader("Global Horizontal Irradiance vs Hour")
+                st.write("")
+                st.write("")
                 plt.figure(figsize=(10, 6))
                 plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Horizontal Irradiance")
                 plt.title("Global Horizontal Irradiance (Global_Hz) vs Hour (HR)")
