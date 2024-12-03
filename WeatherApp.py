@@ -105,25 +105,25 @@ else:
     st.error("Could not find a weather station near the location.")
 
 
-if location:
-    latitude = location.latitude
-    longitude = location.longitude
+# if location:
+#     latitude = location.latitude
+#     longitude = location.longitude
 
-    # Find timezone name
-    timezone_name = tf.timezone_at(lat=latitude, lng=longitude)
-    if timezone_name:
-        # Get current time in the timezone
-        timezone = pytz.timezone(timezone_name)
-        utc_offset = timezone.utcoffset(datetime.now())
-        offset_hours = utc_offset.total_seconds() / 3600
+#     # Find timezone name
+#     timezone_name = tf.timezone_at(lat=latitude, lng=longitude)
+#     if timezone_name:
+#         # Get current time in the timezone
+#         timezone = pytz.timezone(timezone_name)
+#         utc_offset = timezone.utcoffset(datetime.now())
+#         offset_hours = utc_offset.total_seconds() / 3600
 
-        print(f"City: {city}")
-        print(f"Latitude: {latitude}, Longitude: {longitude}")
-        print(f"Timezone Offset: {offset_hours} hours")
-    else:
-        print(f"Could not determine the timezone for {city}")
-else:
-    print(f"Could not find the city: {city}")
+#         print(f"City: {city}")
+#         print(f"Latitude: {latitude}, Longitude: {longitude}")
+#         print(f"Timezone Offset: {offset_hours} hours")
+#     else:
+#         print(f"Could not determine the timezone for {city}")
+# else:
+#     print(f"Could not find the city: {city}")
 
 # Latitude = weather_station['latitude'].values[0]
 # Longitude = weather_station['longitude'].values[0]
