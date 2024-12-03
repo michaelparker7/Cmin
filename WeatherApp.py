@@ -88,7 +88,7 @@ with tab1:
                     min_temp = weather_data['tmin'].iloc[0]
                     max_temp = weather_data['tmax'].iloc[0]
 
-                    st.subheader(f"Weather Data for {date_check.date()}:")
+                    st.subheader(f"Weather Data in {city.upper()} on {date_check.date()}:")
                     st.write(f"Min Temperature: {min_temp}°C")
                     st.write(f"Max Temperature: {max_temp}°C")
 
@@ -108,7 +108,7 @@ with tab1:
                     hours, temperature_curve = generate_smooth_temperature_curve(min_temp, max_temp)
 
                     plt.figure(figsize=(10, 6))
-                    plt.plot(hours, temperature_curve, marker="o", label="Estimated Temperature")
+                    plt.plot(hours, temperature_curve, marker="o", label="Temperature")
                     plt.title(f"Temperature Curve for {city} on {date_check.date()}")
                     plt.xlabel("Hour of the Day")
                     plt.ylabel("Temperature (°C)")
