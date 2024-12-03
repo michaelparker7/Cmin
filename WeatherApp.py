@@ -1,4 +1,3 @@
-pip install geopy
 import streamlit as st
 from geopy.geocoders import Nominatim
 
