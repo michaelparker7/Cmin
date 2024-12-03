@@ -1,5 +1,6 @@
 import streamlit as st
 from geopy.geocoders import Nominatim
+from meteostat import Stations
 
 # Initialize the geolocator
 geolocator = Nominatim(user_agent="geo_locator")
