@@ -201,8 +201,7 @@ with tab1:
                 st.write("")
                 st.write("")
                 st.write("")
-                st.write("")
-                st.write("")
+
                 plt.figure(figsize=(10, 6))
                 plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Horizontal Irradiance")
                 plt.title("Global Horizontal Irradiance (Global_Hz) vs Hour (HR)")
