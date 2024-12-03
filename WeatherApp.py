@@ -43,6 +43,13 @@ if not weather_station.empty:
         if weather_data.empty:
             date_check += timedelta(days=1)
 
+    # Inform the user if the date had to change
+    if date_check.date() != selected_date:
+        st.warning(
+            f"No weather data available for the day you selected ({selected_date}). "
+            f"The closest available date is {date_check.date()}."
+        )
+
     # Display weather data
     st.subheader(f"Weather Data for {date_check.date()}:")
     st.write(f"Min Temperature: {weather_data['tmin'].iloc[0]}°C")
