@@ -214,4 +214,17 @@ with tab1:
 
 with tab2:
     st.title("Work")
-    st.write("Content for this tab will be added later.")
+    st.header("Main Tab")
+    
+    # Sub-tabs using a radio button
+    sub_tab = st.radio("Choose a sub-tab:", ["Sub-tab 1", "Sub-tab 2", "Sub-tab 3"])
+
+    if sub_tab == "Sub-tab 1":
+        st.write("Welcome to Sub-tab 1!")
+        st.write("This is content for Sub-tab 1.")
+    elif sub_tab == "Sub-tab 2":
+        st.write("Welcome to Sub-tab 2!")
+        st.write("This is content for Sub-tab 2.")
+    elif sub_tab == "Sub-tab 3":
+        st.write("Welcome to Sub-tab 3!")
+        st.write("This is content for Sub-tab 3.")
