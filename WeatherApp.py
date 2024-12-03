@@ -5,6 +5,8 @@ from datetime import datetime, date, timedelta
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from timezonefinder import TimezoneFinder
+import pytz
 
 # Initialize the geolocator
 geolocator = Nominatim(user_agent="geo_locator")
