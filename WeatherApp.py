@@ -123,71 +123,71 @@ if location:
 else:
     print(f"Could not find the city: {city}")
 
-Latitude = weather_station['latitude'].values[0]
-Longitude = weather_station['longitude'].values[0]
-TZ = offset_hours
-Pressure = 1000
-Ozone = 0.3
-H2O = 1.5
-AOD500 = 0.1
-AOD380 = 0.15
-Taua = 0.2758*aod380+0.35*aod500
-Ba = 0.85
-Albedo = 0.2
+# Latitude = weather_station['latitude'].values[0]
+# Longitude = weather_station['longitude'].values[0]
+# TZ = offset_hours
+# Pressure = 1000
+# Ozone = 0.3
+# H2O = 1.5
+# AOD500 = 0.1
+# AOD380 = 0.15
+# Taua = 0.2758*aod380+0.35*aod500
+# Ba = 0.85
+# Albedo = 0.2
 
-# disclaimer
-DOY = [selected_date.timetuple().tm_yday]*23
-HR = list(range(1,24))
-ETR = [1367 * (1.00011+ 0.034221 * np.cos(np.radians(2 * np.pi * (d - 1) / 365))+ 0.00128 * np.sin(np.radians(2 * np.pi * (d - 1) / 365))+ 0.000719 * np.cos(np.radians(2 * (2 * np.pi * (d - 1) / 365)))+ 0.000077 * np.sin(np.radians(2 * (2 * np.pi * (d - 1) / 365))))for d in DOY]
-dangle = [6.283185*(d-1)/365 for d in DOY]
+# # disclaimer
+# DOY = [selected_date.timetuple().tm_yday]*23
+# HR = list(range(1,24))
+# ETR = [1367 * (1.00011+ 0.034221 * np.cos(np.radians(2 * np.pi * (d - 1) / 365))+ 0.00128 * np.sin(np.radians(2 * np.pi * (d - 1) / 365))+ 0.000719 * np.cos(np.radians(2 * (2 * np.pi * (d - 1) / 365)))+ 0.000077 * np.sin(np.radians(2 * (2 * np.pi * (d - 1) / 365))))for d in DOY]
+# dangle = [6.283185*(d-1)/365 for d in DOY]
 
-bird = pd.DataFrame([DOY,HR,ETR,dangle]).T
-bird.columns = ['DOY','HR','ETR','dangle']
+# bird = pd.DataFrame([DOY,HR,ETR,dangle]).T
+# bird.columns = ['DOY','HR','ETR','dangle']
 
-# Intermediate Parameters
+# # Intermediate Parameters
 
-bird['DEC'] = (0.006918-0.399912*np.cos(np.radians(bird['dangle']))+0.070257*np.sin(np.radians(bird['dangle']))-0.006758*np.cos(2*np.radians(bird['dangle'])) +0.000907*np.sin(2*np.radians(bird['dangle']))-0.002697*np.cos(3*np.radians(bird['dangle']))+0.00148*np.sin(3*np.radians(bird['dangle'])))*(180/np.pi)
-bird['EQT'] = (0.0000075+0.001868*np.cos(np.radians(bird['dangle']))-0.032077*np.sin(np.radians(bird['dangle']))-0.014615*np.cos(2*np.radians(bird['dangle'])) -0.040849*np.sin(2*np.radians(bird['dangle'])))*(229.18)
-bird['Hour_Angle'] = 15*(bird['HR']-12.5)+(Longitude)-(TZ)*15+bird['EQT']/4
-bird['Zenith_Air'] = np.arccos(np.cos(np.radians(bird['DEC'])) * np.cos(np.radians(Latitude)) * np.cos(np.radians(bird['Hour_Angle'])) +np.sin(np.radians(bird['DEC'])) * np.sin(np.radians(Latitude))) * (180 / np.pi)
-bird['Air_Mass'] = np.where(bird['Zenith_Air'] < 89,1 / (np.cos(np.radians(bird['Zenith_Air'])) +0.15 / (93.885 - bird['Zenith_Air'])**1.25),0)
+# bird['DEC'] = (0.006918-0.399912*np.cos(np.radians(bird['dangle']))+0.070257*np.sin(np.radians(bird['dangle']))-0.006758*np.cos(2*np.radians(bird['dangle'])) +0.000907*np.sin(2*np.radians(bird['dangle']))-0.002697*np.cos(3*np.radians(bird['dangle']))+0.00148*np.sin(3*np.radians(bird['dangle'])))*(180/np.pi)
+# bird['EQT'] = (0.0000075+0.001868*np.cos(np.radians(bird['dangle']))-0.032077*np.sin(np.radians(bird['dangle']))-0.014615*np.cos(2*np.radians(bird['dangle'])) -0.040849*np.sin(2*np.radians(bird['dangle'])))*(229.18)
+# bird['Hour_Angle'] = 15*(bird['HR']-12.5)+(Longitude)-(TZ)*15+bird['EQT']/4
+# bird['Zenith_Air'] = np.arccos(np.cos(np.radians(bird['DEC'])) * np.cos(np.radians(Latitude)) * np.cos(np.radians(bird['Hour_Angle'])) +np.sin(np.radians(bird['DEC'])) * np.sin(np.radians(Latitude))) * (180 / np.pi)
+# bird['Air_Mass'] = np.where(bird['Zenith_Air'] < 89,1 / (np.cos(np.radians(bird['Zenith_Air'])) +0.15 / (93.885 - bird['Zenith_Air'])**1.25),0)
 
-# Intermediate Results
+# # Intermediate Results
 
-bird['T_rayleigh'] = np.where(bird['Air_Mass'] > 0,np.exp(-0.0903 * ((Pressure * bird['Air_Mass'] / 1013)**0.84 *(1 + Pressure * bird['Air_Mass'] / 1013 -(Pressure * bird['Air_Mass'] / 1013)**1.01))),0)
-bird['T_ozone'] = np.where(bird['Air_Mass'] > 0, 1 - 0.1611 * (Ozone * bird['Air_Mass']) * (1 + 139.48 * (Ozone * bird['Air_Mass']))**-0.3034 - 0.002715 * (Ozone * bird['Air_Mass']) / (1 + 0.044 * (Ozone * bird['Air_Mass']) + 0.0003 * (Ozone * bird['Air_Mass'])**2), 0)
-bird['T_gases'] = np.where(bird['Air_Mass'] > 0, np.exp(-0.0127 * (bird['Air_Mass'] * Pressure / 1013)**0.26), 0)
-bird['T_water'] = np.where(bird['Air_Mass'] > 0, 1 - 2.4959 * bird['Air_Mass'] * H2O / ((1 + 79.034 * H2O * bird['Air_Mass'])**0.6828 + 6.385 * H2O * bird['Air_Mass']), 0)
-bird['T_aerosol'] = np.where(bird['Air_Mass'] > 0, np.exp(-(Taua**0.873) * (1 + Taua - Taua**0.7088) * bird['Air_Mass']**0.9108), 0)
-bird['TAA'] = np.where(bird['Air_Mass'] > 0, 1 - 0.1 * (1 - bird['Air_Mass'] + bird['Air_Mass']**1.06) * (1 - bird['T_aerosol']), 0)
-bird['rs'] = np.where(bird['Air_Mass'] > 0, 0.0685 + (1 - Ba) * (1 - bird['T_aerosol'] / bird['TAA']), 0)
-bird['Id'] = np.where(bird['Air_Mass'] > 0, 0.9662 * bird['ETR'] * bird['T_aerosol'] * bird['T_water'] * bird['T_gases'] * bird['T_ozone'] * bird['T_rayleigh'], 0)
-bird['IdnH'] = np.where(bird['Zenith_Air'] < 90, bird['Id'] * np.cos(np.radians(bird['Zenith_Air'])), 0)
-bird['Ias'] = np.where(bird['Air_Mass'] > 0,bird['ETR'] * np.cos(np.radians(bird['Zenith_Air'])) * 0.79 * bird['T_ozone'] * bird['T_gases'] * bird['T_water'] * bird['TAA'] * (0.5 * (1 - bird['T_rayleigh']) + Ba * (1 - (bird['T_aerosol'] / bird['TAA']))) / (1 - bird['Air_Mass'] + bird['Air_Mass']**1.02),0)
-bird['GH'] = np.where(bird['Air_Mass'] > 0, (bird['IdnH'] + bird['Ias']) / (1 - Albedo * bird['rs']), 0)
+# bird['T_rayleigh'] = np.where(bird['Air_Mass'] > 0,np.exp(-0.0903 * ((Pressure * bird['Air_Mass'] / 1013)**0.84 *(1 + Pressure * bird['Air_Mass'] / 1013 -(Pressure * bird['Air_Mass'] / 1013)**1.01))),0)
+# bird['T_ozone'] = np.where(bird['Air_Mass'] > 0, 1 - 0.1611 * (Ozone * bird['Air_Mass']) * (1 + 139.48 * (Ozone * bird['Air_Mass']))**-0.3034 - 0.002715 * (Ozone * bird['Air_Mass']) / (1 + 0.044 * (Ozone * bird['Air_Mass']) + 0.0003 * (Ozone * bird['Air_Mass'])**2), 0)
+# bird['T_gases'] = np.where(bird['Air_Mass'] > 0, np.exp(-0.0127 * (bird['Air_Mass'] * Pressure / 1013)**0.26), 0)
+# bird['T_water'] = np.where(bird['Air_Mass'] > 0, 1 - 2.4959 * bird['Air_Mass'] * H2O / ((1 + 79.034 * H2O * bird['Air_Mass'])**0.6828 + 6.385 * H2O * bird['Air_Mass']), 0)
+# bird['T_aerosol'] = np.where(bird['Air_Mass'] > 0, np.exp(-(Taua**0.873) * (1 + Taua - Taua**0.7088) * bird['Air_Mass']**0.9108), 0)
+# bird['TAA'] = np.where(bird['Air_Mass'] > 0, 1 - 0.1 * (1 - bird['Air_Mass'] + bird['Air_Mass']**1.06) * (1 - bird['T_aerosol']), 0)
+# bird['rs'] = np.where(bird['Air_Mass'] > 0, 0.0685 + (1 - Ba) * (1 - bird['T_aerosol'] / bird['TAA']), 0)
+# bird['Id'] = np.where(bird['Air_Mass'] > 0, 0.9662 * bird['ETR'] * bird['T_aerosol'] * bird['T_water'] * bird['T_gases'] * bird['T_ozone'] * bird['T_rayleigh'], 0)
+# bird['IdnH'] = np.where(bird['Zenith_Air'] < 90, bird['Id'] * np.cos(np.radians(bird['Zenith_Air'])), 0)
+# bird['Ias'] = np.where(bird['Air_Mass'] > 0,bird['ETR'] * np.cos(np.radians(bird['Zenith_Air'])) * 0.79 * bird['T_ozone'] * bird['T_gases'] * bird['T_water'] * bird['TAA'] * (0.5 * (1 - bird['T_rayleigh']) + Ba * (1 - (bird['T_aerosol'] / bird['TAA']))) / (1 - bird['Air_Mass'] + bird['Air_Mass']**1.02),0)
+# bird['GH'] = np.where(bird['Air_Mass'] > 0, (bird['IdnH'] + bird['Ias']) / (1 - Albedo * bird['rs']), 0)
 
-# Decimal Time
+# # Decimal Time
 
-bird['Decimal_Time'] = bird['DOY'] + (bird['HR'] - 0.5) / 24
+# bird['Decimal_Time'] = bird['DOY'] + (bird['HR'] - 0.5) / 24
 
-# Model Results
+# # Model Results
 
-bird['Direct_Beam'] = bird['Id']
-bird['Direct_Hz'] = bird['IdnH']
-bird['Global_Hz'] = bird['GH']
-bird['Dif_Hz'] = bird['Global_Hz'] - bird['Direct_Hz']
+# bird['Direct_Beam'] = bird['Id']
+# bird['Direct_Hz'] = bird['IdnH']
+# bird['Global_Hz'] = bird['GH']
+# bird['Dif_Hz'] = bird['Global_Hz'] - bird['Direct_Hz']
 
 
-# Streamlit Graph for Global Horizontal Irradiance (Global_Hz) vs Hour (HR)
-if not bird.empty:
-    st.subheader("Global Horizontal Irradiance vs Hour")
-    plt.figure(figsize=(10, 6))
-    plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Horizontal Irradiance")
-    plt.title("Global Horizontal Irradiance (Global_Hz) vs Hour (HR)")
-    plt.xlabel("Hour of the Day (HR)")
-    plt.ylabel("Global Horizontal Irradiance (Global_Hz)")
-    plt.grid(True, linestyle="--", alpha=0.6)
-    plt.legend()
-    st.pyplot(plt)
-else:
-    st.warning("No data available to plot Global Horizontal Irradiance.")
+# # Streamlit Graph for Global Horizontal Irradiance (Global_Hz) vs Hour (HR)
+# if not bird.empty:
+#     st.subheader("Global Horizontal Irradiance vs Hour")
+#     plt.figure(figsize=(10, 6))
+#     plt.plot(bird['HR'], bird['Global_Hz'], marker="o", label="Global Horizontal Irradiance")
+#     plt.title("Global Horizontal Irradiance (Global_Hz) vs Hour (HR)")
+#     plt.xlabel("Hour of the Day (HR)")
+#     plt.ylabel("Global Horizontal Irradiance (Global_Hz)")
+#     plt.grid(True, linestyle="--", alpha=0.6)
+#     plt.legend()
+#     st.pyplot(plt)
+# else:
+#     st.warning("No data available to plot Global Horizontal Irradiance.")
