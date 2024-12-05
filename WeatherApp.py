@@ -30,14 +30,26 @@ with tab1:
     st.sidebar.header("Input Options")
     st.sidebar.subheader("Where are you walking your dog?")
     st.sidebar.markdown(
-    '<p style="font-size:12px; color:gray;">Works best if formatted as [City, Abbreviated State] (Philadelphia, PA) or [City, Country] (Paris, France)</p>',
-    unsafe_allow_html=True,
+        '<p style="font-size:12px; color:gray;">Works best if formatted as [City, Abbreviated State] (Philadelphia, PA) or [City, Country] (Paris, France)</p>',
+        unsafe_allow_html=True,
     )
     city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
     st.sidebar.subheader("When are you walking your dog?")
-    selected_date = st.sidebar.date_input("Select a date:", date(2023, 7, 4))
-    selected_datetime = datetime.combine(selected_date, datetime.min.time())
+    
+    # Initialize selected_date
     today = datetime.now().date()
+    selected_date = st.sidebar.date_input("Select a date:", date(2023, 7, 4))
+
+    # Add "Today" button
+    if st.sidebar.button("Today"):
+        selected_date = today  # Set selected_date to today
+        st.sidebar.success(f"Date set to today: {selected_date}")
+
+    st.sidebar.markdown(
+        '<p style="font-size:12px; color:gray;">*If error, refresh page*</p>',
+        unsafe_allow_html=True,
+    )
+    selected_datetime = datetime.combine(selected_date, datetime.min.time())
 
     
     if city:
