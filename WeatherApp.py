@@ -239,11 +239,11 @@ with tab2:
             st.write(
                 """
                 Set up the finite-difference equations and use MATLAB to solve for the steady-state temperature distribution 
-                in the concrete and ground soil at midnight on July 4th, assuming that \\( T_s = T_x \\) at this time point. 
+                in the concrete and ground soil at midnight on July 4th, assuming that \( T_s = T_x \) at this time point. 
                 Plot the temperature distribution for this solution, showing temperature on the x-axis and depth on the y-axis.
                 """
             )
-            st.image("TaskOne.png", caption="Task 1", use_column_width=True)
+            st.image("TaskOne.png", caption="Task 1", use_column_width=False)
             
         elif section == "2: Air Temperature Over 24 Hours":
             st.subheader("2. Air Temperature Over 24 Hours")
