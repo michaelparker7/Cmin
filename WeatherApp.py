@@ -271,7 +271,7 @@ with tab2:
             st.subheader("4. Interpolation Function")
             st.write(
                 """
-                Create an interpolaEon funcEon in MATLAB for the thermophysical properEes of air over
+                Create an interpolation function in MATLAB for the thermophysical properties of air over
                 ranges of temperatures that are relevant for this assignment. 
                 """
             )
