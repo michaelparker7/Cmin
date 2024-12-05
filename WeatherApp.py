@@ -216,24 +216,56 @@ with tab2:
     st.title("Work")
     
     # Sub-tabs using a radio button
-    sub_tab = st.radio("Choose a section:", ["1: Steady State Solution", 
-                                             "2: Air Temperature Over 24 Hours",
-                                             "3: Bird Clear Sky Model",
-                                             "4: Interpolation Function",
-                                             "5: Time Marching Function",
-                                             "6: Recommendations",])
-
-    if sub_tab == "1: Steady State Solution":
-        st.write("""
-            **1. Steady state solution:**  
-            Set up the finite-difference equations and use MATLAB to solve for the steady-state temperature distribution 
-            in the concrete and ground soil at midnight on July 4th, assuming that \\( T_s = T_x \\) at this time point. 
-            Plot the temperature distribution for this solution, showing temperature on the x-axis and depth on the y-axis.
-            """)
-        st.image("TaskOne.png", caption="Task One", use_column_width=False)
-    elif sub_tab == "Sub-tab 2":
-        st.write("Welcome to Sub-tab 2!")
-        st.write("This is content for Sub-tab 2.")
-    elif sub_tab == "Sub-tab 3":
-        st.write("Welcome to Sub-tab 3!")
-        st.write("This is content for Sub-tab 3.")
+    left_col, right_col = st.columns([1, 4])  # Adjust the width ratio as needed
+    
+    with left_col:
+        # Radio buttons for navigation
+        section = st.radio(
+            "Choose a section:",
+            [
+                "1: Steady State Solution",
+                "2: Air Temperature Over 24 Hours",
+                "3: Bird Clear Sky Model",
+                "4: Interpolation Function",
+                "5: Time Marching Function",
+                "6: Recommendations"
+            ]
+        )
+    
+    with right_col:
+        # Display content based on the selected section
+        if section == "1: Steady State Solution":
+            st.subheader("1. Steady State Solution:")
+            st.write(
+                """
+                Set up the finite-difference equations and use MATLAB to solve for the steady-state temperature distribution 
+                in the concrete and ground soil at midnight on July 4th, assuming that \\( T_s = T_x \\) at this time point. 
+                Plot the temperature distribution for this solution, showing temperature on the x-axis and depth on the y-axis.
+                """
+            )
+            st.image("TaskOne.png", caption="Task 1", use_column_width=True)
+            
+        elif section == "2: Air Temperature Over 24 Hours":
+            st.subheader("2. Air Temperature Over 24 Hours")
+            st.write("This section will describe the air temperature variation over a day.")
+            # Add more content here as needed.
+        
+        elif section == "3: Bird Clear Sky Model":
+            st.subheader("3. Bird Clear Sky Model")
+            st.write("This section will describe the Bird Clear Sky Model.")
+            # Add more content here as needed.
+        
+        elif section == "4: Interpolation Function":
+            st.subheader("4. Interpolation Function")
+            st.write("This section will describe the interpolation function.")
+            # Add more content here as needed.
+        
+        elif section == "5: Time Marching Function":
+            st.subheader("5. Time Marching Function")
+            st.write("This section will describe the time marching function.")
+            # Add more content here as needed.
+        
+        elif section == "6: Recommendations":
+            st.subheader("6. Recommendations")
+            st.write("This section will provide recommendations.")
+            # Add more content here as needed.
