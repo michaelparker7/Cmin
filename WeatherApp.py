@@ -29,7 +29,8 @@ with tab1:
     # Sidebar for user input
     st.sidebar.header("Input Options")
     st.sidebar.subheader("Where are you walking your dog?")
-    city = st.sidebar.text_input("Enter a city name:/ntest\ntest", "Bethlehem, PA")
+    st.write("Works best if formatted as [City, Abbreviated State] (Philadelphia, PA) or [City, Country] (Paris, France)")
+    city = st.sidebar.text_input("Enter a city name:", "Bethlehem, PA")
     st.sidebar.subheader("When are you walking your dog?")
     selected_date = st.sidebar.date_input("Select a date:", date(2023, 7, 4))
     selected_datetime = datetime.combine(selected_date, datetime.min.time())
