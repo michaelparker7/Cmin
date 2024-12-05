@@ -46,7 +46,7 @@ with tab1:
         st.sidebar.success(f"Date set to today: {selected_date}")
 
     st.sidebar.markdown(
-        '<p style="font-size:12px; color:gray;">*If error, refresh page*</p>',
+        '<p style="font-size:16px; color:gray;">*If error, refresh page*</p>',
         unsafe_allow_html=True,
     )
     selected_datetime = datetime.combine(selected_date, datetime.min.time())
@@ -330,7 +330,7 @@ with tab2:
             """
             
             # Display the MATLAB code with syntax highlighting
-            st.code(matlab_code, language="matlab")            
+            st.code(matlab_code1, language="matlab")            
         
         elif section == "5: Time Marching Function":
             st.subheader("5. Time Marching Function")
@@ -484,6 +484,8 @@ with tab2:
                 axis([0 48 -inf inf])
 
             """            
+            # Display the MATLAB code with syntax highlighting
+            st.code(matlab_code2, language="matlab")
         
         elif section == "6: Recommendations":
             st.subheader("6. Recommendations")
