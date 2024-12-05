@@ -269,8 +269,52 @@ with tab2:
         
         elif section == "4: Interpolation Function":
             st.subheader("4. Interpolation Function")
-            st.write("This section will describe the interpolation function.")
-            # Add more content here as needed.
+            st.write(
+                """
+                Create an interpolaEon funcEon in MATLAB for the thermophysical properEes of air over
+                ranges of temperatures that are relevant for this assignment. 
+                """
+            )
+            matlab_code = """
+            function [rho, k, c, alpha, nu, Pr] = ME321ProjectPt4(T)
+               % need density rho, thermal conductivity k, heat capacity c, Fourier # Fo,
+               % diffusivity alpha (function of rho, k, c), kinematic viscosity nu, Pr
+            
+               % Temperature range in degrees celsius
+               T_range1 = [-25 -15 -10 -5 0 5 10 15 20 25 30 40 50 60];
+               T_range2 = [-100 -50 0 25 50 100];
+            
+               % Density in kg/m^3 @ atmospheric pressure
+               rho_range = [1.422 1.367 1.341 1.316 1.292 1.268 1.246 1.225 1.204 1.184 1.164 1.127 1.093 1.060];
+            
+               % Thermal conductivity in W/m*K @ atmospheric pressure
+               k_range = [22.41 23.20 23.59 23.97 24.36 24.74 25.12 25.50 25.87 26.24 26.62 27.35 28.08 28.80];
+               k_range = k_range/1000;
+            
+               % Specific heat capacity in J/kg*K @ atmospheric pressure
+               c_range = [1.005 1.005 1.005 1.005 1.005 1.005 1.005 1.006 1.006 1.006 1.006 1.007 1.007 1.008];
+               c_range = c_range*1000;
+              
+               % Kinematic viscosity in m^2/s @ atmospheric pressure
+               nu_range = [11.18 12.01 12.43 12.85 13.28 13.72 14.16 14.61 15.06 15.52 15.98 16.92 17.88 18.86];
+               nu_range = nu_range*10^(-6);
+              
+               % Prandtl number @ atmospheric pressure
+               Pr_range = [0.734 0.72 0.711 0.707 0.705 0.701];
+            
+               % Interpolation of all desired values for any given temperature input
+               % using the above ranges of values
+               rho = interp1(T_range1, rho_range, T, 'linear');
+               k = interp1(T_range1, k_range, T, 'linear');
+               c = interp1(T_range1, c_range, T, 'linear');
+               alpha = k/(rho*c);
+               nu = interp1(T_range1, nu_range, T, 'linear');
+               Pr = interp1(T_range2, Pr_range, T, 'linear');
+            end
+            """
+            
+            # Display the MATLAB code with syntax highlighting
+            st.code(matlab_code, language="matlab")            
         
         elif section == "5: Time Marching Function":
             st.subheader("5. Time Marching Function")
