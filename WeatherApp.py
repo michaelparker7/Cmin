@@ -225,6 +225,7 @@ with tab2:
 
     if sub_tab == "1: Steady State Solution":
         st.write("This is content for Sub-tab 1.")
+        st.image("TaskOne.png", caption="Task One", use_column_width=True)
     elif sub_tab == "Sub-tab 2":
         st.write("Welcome to Sub-tab 2!")
         st.write("This is content for Sub-tab 2.")
