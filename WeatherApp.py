@@ -224,7 +224,12 @@ with tab2:
                                              "6: Recommendations",])
 
     if sub_tab == "1: Steady State Solution":
-        st.write("This is content for Sub-tab 1.")
+        st.write("""
+            **1. Steady state solution:**  
+            Set up the finite-difference equations and use MATLAB to solve for the steady-state temperature distribution 
+            in the concrete and ground soil at midnight on July 4th, assuming that \\( T_s = T_x \\) at this time point. 
+            Plot the temperature distribution for this solution, showing temperature on the x-axis and depth on the y-axis.
+            """)
         st.image("TaskOne.png", caption="Task One", use_column_width=False)
     elif sub_tab == "Sub-tab 2":
         st.write("Welcome to Sub-tab 2!")
