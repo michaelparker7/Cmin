@@ -249,8 +249,8 @@ with tab2:
             st.subheader("2. Air Temperature Over 24 Hours")
             st.write(
                 """
-                Set up Eme funcEons for ambient air temperatures in July for zip code 18015 and your
-                chosen second locaEon. Use MATLAB to plot air temperature versus 24-hour Eme (0:00 to
+                Set up time functions for ambient air temperatures in July for zip code 18015 and your
+                chosen second location. Use MATLAB to plot air temperature versus 24-hour time (0:00 to
                 24:00 hours). 
                 """
             )
@@ -258,8 +258,14 @@ with tab2:
             
         elif section == "3: Bird Clear Sky Model":
             st.subheader("3. Bird Clear Sky Model")
-            st.write("This section will describe the Bird Clear Sky Model.")
-            # Add more content here as needed.
+            st.write(
+                """
+                Use the Bird clear sky model spreadsheet (or another well-justified alternative) to plot
+                surface heat flux (i.e. “global horizontal solar flux”, column Y) for the 24 hours of July 4th in
+                zip code 18015 and your chosen second location. 
+                """
+            )
+            st.image("photos/TaskThree.png", caption="Task 1", use_column_width=False)
         
         elif section == "4: Interpolation Function":
             st.subheader("4. Interpolation Function")
